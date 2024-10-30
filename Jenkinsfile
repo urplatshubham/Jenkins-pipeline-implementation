@@ -44,7 +44,7 @@ pipeline {
         }
     }
 
-    // Remove or comment out the post section to avoid email errors
+    // Comment out the post section if not needed to prevent syntax errors
     /*
     post {
         success {
@@ -55,4 +55,10 @@ pipeline {
         }
         failure {
             echo 'Pipeline failed. Check logs for details.'
-           
+            mail to: 'you@example.com',
+                 subject: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                 body: "Oops! The job ${env.JOB_NAME} has failed. Check the Jenkins logs for details."
+        }
+    }
+    */
+}
