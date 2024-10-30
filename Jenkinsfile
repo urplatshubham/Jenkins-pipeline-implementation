@@ -8,9 +8,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                echo 'Checking out code...'
-                // Cloning the repository
-                bat 'git clone https://github.com/urplatshubham/Jenkins-pipeline-implementation .'
+                echo 'Code has already been checked out by Jenkins'
             }
         }
 
@@ -57,10 +55,4 @@ pipeline {
         }
         failure {
             echo 'Pipeline failed. Check logs for details.'
-            mail to: 'you@example.com',
-                 subject: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                 body: "Oops! The job ${env.JOB_NAME} has failed. Check the Jenkins logs for details."
-        }
-    }
-    */
-}
+           
