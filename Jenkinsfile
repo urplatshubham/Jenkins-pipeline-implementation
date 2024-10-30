@@ -9,28 +9,29 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 echo 'Checking out code...'
-                sh 'git clone https://github.com/urplatshubham/Jenkins-pipeline-implementation .'
+                // Cloning the repository
+                bat 'git clone https://github.com/urplatshubham/Jenkins-pipeline-implementation .'
             }
         }
 
         stage('Build') {
             steps {
                 echo 'Installing dependencies...'
-                sh '''
-                    python3 -m venv ${VENV_DIR}
-                    . ${VENV_DIR}/bin/activate
+                bat """
+                    python -m venv ${VENV_DIR}
+                    ${VENV_DIR}\\Scripts\\activate
                     pip install -r requirements.txt
-                '''
+                """
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                sh '''
-                    . ${VENV_DIR}/bin/activate
+                bat """
+                    ${VENV_DIR}\\Scripts\\activate
                     pytest
-                '''
+                """
             }
         }
 
@@ -40,12 +41,13 @@ pipeline {
             }
             steps {
                 echo 'Deploying to staging environment...'
-                // Simulate deployment steps
-                sh 'echo "Deployment successful"'
+                bat 'echo "Deployment successful"'
             }
         }
     }
 
+    // Remove or comment out the post section to avoid email errors
+    /*
     post {
         success {
             echo 'Pipeline completed successfully!'
@@ -60,4 +62,5 @@ pipeline {
                  body: "Oops! The job ${env.JOB_NAME} has failed. Check the Jenkins logs for details."
         }
     }
+    */
 }
